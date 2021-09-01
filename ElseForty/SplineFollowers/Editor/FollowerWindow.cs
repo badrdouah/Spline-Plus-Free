@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-
+using ElseForty;
 
 public class FollowerWindow : EditorWindow
 {
@@ -132,7 +132,7 @@ public class FollowerWindow : EditorWindow
 
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.PropertyField(
-            follower.FindPropertyRelative("_FollowerAnimation"), new GUIContent("Animation type"));
+            follower.FindPropertyRelative("_FollowerAnimation"), new GUIContent("Animation insectType"));
         if (EditorGUI.EndChangeCheck())
         {
             follower.serializedObject.ApplyModifiedProperties();

@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
+using ElseForty;
 
 public static class SplineCreationClass
 {
-    public delegate void OnUpdate();
-    public static event OnUpdate Update_Spline;
+   public delegate void OnUpdate();
+   public static event OnUpdate Update_Spline;
 
-    public static void Update(this SPData sPData)
+
+    public static void Update(this SPData sPData )
     {
         sPData.Vertices.Clear();
+        sPData.VerticesCached.Clear();
         sPData.Tangents.Clear();
         sPData.Normals.Clear();
 
@@ -22,10 +25,14 @@ public static class SplineCreationClass
                 else CubicBezier(sPData, sPData.Nodes[j + 1], sPData.Nodes[j]);
             }
             if (sPData.Close) CubicBezier(sPData, sPData.Nodes[0], sPData.Nodes[sPData.Nodes.Count - 1]);
-            if (Update_Spline != null) Update_Spline();
         }
-    }
-
+        
+            // Debug.Log("before" + sPData.Vertices.Count);
+            if (Update_Spline != null  )  Update_Spline();
+        
+          // Debug.Log("after" + sPData.Vertices.Count);
+        }
+ 
     static void CubicBezier(SPData sPData, Node pointA, Node pointB)
     {
         Vector3 _pointA1 = pointA.Point1.position;
@@ -89,6 +96,7 @@ public static class SplineCreationClass
             }
 
             sPData.Vertices.Add(vertex);
+            sPData.VerticesCached.Add(vertex);
             if (sPData.Vertices.Count > 1)
             {
                 sPData.Length += Vector3.Distance(sPData.Vertices[sPData.Vertices.Count - 2],

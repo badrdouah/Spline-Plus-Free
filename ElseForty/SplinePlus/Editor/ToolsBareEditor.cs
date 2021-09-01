@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System;
+using ElseForty;
+
 
 public class ToolsBareEditor
 {
@@ -29,7 +31,12 @@ public class ToolsBareEditor
             GenericMenu menu = new GenericMenu();
             menu.AddDisabledItem(new GUIContent("Animation"));
             menu.AddItem(new GUIContent("Simple Followers"), false, AddModifier, new object[] { sPData, "SimpleFollowersClass" });
-           
+            menu.AddDisabledItem(new GUIContent("Mesh"));
+            menu.AddItem(new GUIContent("Plane Mesh"), false, AddModifier, new object[] { sPData, "PlaneMesh" });
+            menu.AddItem(new GUIContent("Tube Mesh"), false, AddModifier, new object[] { sPData, "TubeMesh" });
+            menu.AddItem(new GUIContent("Slice"), false, AddModifier, new object[] { sPData, "Slice" });
+
+
             c.y += 5;
             menu.DropDown(c);
         }
@@ -39,7 +46,9 @@ public class ToolsBareEditor
         if (GUILayout.Button("Help", "ToolbarButton" ))
         {
             GenericMenu menu = new GenericMenu();
+            menu.AddItem(new GUIContent("Elseforty.com"), false, Website);
             menu.AddItem(new GUIContent("Documentation"), false, Documentation);
+
 
             c.y += 5;
             menu.DropDown(c);
@@ -58,7 +67,6 @@ public class ToolsBareEditor
         SplinePlusEditorAPI.Snap(sPData);
     }
  
-
     static void Settings(object obj)
     {
         SPData sPData = (SPData)obj;
@@ -72,7 +80,11 @@ public class ToolsBareEditor
         var modifierName = (string)o[1];
         var sPData = (SPData)o[0];
 
-        var myType = Type.GetType(modifierName + ", Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
+
+        var myType = System.Type.GetType("ElseForty." + modifierName + ", Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
+        //sPData.meshModifier =(IMeshModifier) myType;
+
+     //   var myType = Type.GetType(modifierName + ", Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
         if (myType == null)
         {
             EditorUtility.DisplayDialog("Error", modifierName + " modifier not found!", "Okey");
@@ -81,11 +93,19 @@ public class ToolsBareEditor
         {
             sPData.SplinePlus.gameObject.AddComponent(myType);
         }
+
+        SplineCreationClass.Update(sPData);
+
     }
 
     static void Documentation()
     {
         Application.OpenURL("https://elseforty.github.io/unity/");
+    }
+
+    static void Website()
+    {
+        Application.OpenURL("https://elseforty.com");
     }
     #endregion
 }

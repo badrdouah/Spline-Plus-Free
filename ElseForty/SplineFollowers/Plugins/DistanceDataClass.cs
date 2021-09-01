@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using ElseForty;
 
 public static class DistanceDataClass
 {
@@ -24,6 +25,8 @@ public static class DistanceDataClass
 
         var a = follower.DistanceData.Index;
         var b = a + 1;
+        //avoid index out of range when using slice
+        if (b >= sPData.Vertices.Count) return follower.DistanceData;
 
         var vertexA = sPData.Vertices[a];
         var vertexB = sPData.Vertices[b];
@@ -55,4 +58,5 @@ public static class DistanceDataClass
         }
         return follower.DistanceData;
     }
+
 }

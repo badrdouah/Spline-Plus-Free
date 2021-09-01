@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using ElseForty;
 
 public class SimpleFollowerAnim
 {
@@ -58,31 +59,24 @@ public class SimpleFollowerAnim
     {
         if (Input.GetKey(sPData.UpKey) )
         {
-          
             sPData.KeyboardDirection =  KeyboardDirection.Forward;
-
             InputGravity(sPData,follower);
         }
  
         else if (Input.GetKey(sPData.DownKey) )
         {
-   
             sPData.KeyboardDirection = KeyboardDirection.Backward;
-
             InputGravity(sPData,follower);
         }
  
         if (!Input.GetKey(sPData.UpKey) && !Input.GetKey(sPData.DownKey))
         {
-     
             sPData.KeyboardDirection = KeyboardDirection.None;
-
             InputGravity(sPData,follower);
         }
  
         if (Application.isPlaying )
         {
- 
             if (follower.IsForward)
             {
                 if (follower.Reverse) follower.Distance -= SPData.KeyboardInputValue * follower.Speed *Time.deltaTime;

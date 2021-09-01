@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using ElseForty;
 
 public class SettingsWindow : EditorWindow
 {
@@ -71,10 +72,10 @@ public class SettingsWindow : EditorWindow
         }
 
         EditorGUI.BeginChangeCheck();
-        var nodeType = (NodeType)EditorGUILayout.EnumPopup("Node type", sPData.SplineSettings.NodeType);
+        var nodeType = (NodeType)EditorGUILayout.EnumPopup("Node insectType", sPData.SplineSettings.NodeType);
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObject(sPData.SplinePlus, "Initiale Node type");
+            Undo.RecordObject(sPData.SplinePlus, "Initiale Node insectType");
             sPData.SplineSettings.NodeType = nodeType;
         }
 

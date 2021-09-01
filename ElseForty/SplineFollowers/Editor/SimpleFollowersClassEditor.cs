@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
+using ElseForty;
 
 [CustomEditor(typeof(SimpleFollowersClass))]
 public class SimpleFollowersClassEditor : Editor
